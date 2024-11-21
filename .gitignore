@@ -1,1 +1,6 @@
 autovid/
+src/
+tmp/
+output/
+tmp/
+main.py
