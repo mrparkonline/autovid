@@ -1,13 +1,20 @@
 # activate autovid venv
 # ./autovid/Scripts/activate.ps1
 
+# moviepy python -m pip install moviepy==1.0.3
 # Libraries: moviepy, pygame, pyttsx3
 # Programs: ImageMagick
+
+import os
+os.environ["FFMPEG_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffmpeg.exe"
+os.environ["FFPLAY_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffplay.exe"
+os.environ["IMAGEMAGICK_BINARY"] = "C:\\Program Files\\ImageMagick\\magick.exe"
 
 # EXTERNAL IMPORTS
 import streamlit as st
 import pyttsx3
 from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip
+#from moviepy import * # moviepy 2.0...
 
 # INTERNAL IMPORTS
 import datetime
@@ -87,7 +94,7 @@ if audio_made:
     video = VideoFileClip(v_path)
 
     # Set Dimensions
-    video = video.resize(newsize=(1080, 1920))
+    video = video.resize(height=1080, width=1920)
 
     # Loop the video to match the duration of the audio
     video = video.loop(duration=audio.duration)

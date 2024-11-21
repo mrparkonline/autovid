@@ -1,7 +1,7 @@
 # activate autovid venv
 # ./autovid/Scripts/activate.ps1
 
-# Libraries: moviepy, pygame, pyttsx3
+# Libraries: moviepy python -m pip install moviepy==1.0.3 , pygame, pyttsx3
 # Programs: ImageMagick
 
 # Movie Creator
