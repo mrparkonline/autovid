@@ -70,6 +70,9 @@ if audio_gen:
     engine.save_to_file(story, audio_path)
     engine.runAndWait()
     audio_made = True
+    with open(f"./output/reel_script_{formatted_date}.txt", "w") as data_file:
+        data_file.write(story)
+        print(f"{story}\n written to reel_script_{formatted_date}.txt")
 # end of audio_gen
 
 # Video Creation Portion
@@ -94,7 +97,7 @@ if audio_made:
     video = VideoFileClip(v_path)
 
     # Set Dimensions
-    video = video.resize(height=1080, width=1920)
+    video = video.resize(newsize=(1080, 1920))
 
     # Loop the video to match the duration of the audio
     video = video.loop(duration=audio.duration)
@@ -102,5 +105,6 @@ if audio_made:
     # Set the audio to the video
     video = video.set_audio(audio)
 
-    video.write_videofile(f"./output/reel_{formatted_date}.mp4", codec="libx264", audio_codec="aac")
+    #video.write_videofile(f"./output/reel_{formatted_date}.mp4", codec="libx264", audio_codec="aac")
+    video.write_videofile(f"./output/reel_{formatted_date}.mp4", codec="mpeg4", audio_codec="aac")
 # END OF PROGRAM
