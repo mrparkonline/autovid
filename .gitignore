@@ -1,6 +1,5 @@
 autovid/
-src/
 tmp/
 output/
-tmp/
+src/
 main.py
