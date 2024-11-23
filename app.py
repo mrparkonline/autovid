@@ -42,7 +42,7 @@ video = None
 # END OF INITIALIZATIONS
 
 # Helper Functions
-def remove_tmp_audio(path):
+def remove_tmp_audio(file_path):
     try:
         os.remove(file_path)
         print(f"File '{file_path}' deleted successfully.")
