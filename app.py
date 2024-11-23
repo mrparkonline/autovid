@@ -41,6 +41,18 @@ custom_vids = list(os.listdir(f"./src/custom"))
 video = None
 # END OF INITIALIZATIONS
 
+# Helper Functions
+def remove_tmp_audio(path):
+    try:
+        os.remove(file_path)
+        print(f"File '{file_path}' deleted successfully.")
+    except FileNotFoundError:
+        print(f"The file '{file_path}' does not exist.")
+    except PermissionError:
+        print(f"Permission denied: Unable to delete '{file_path}'.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 # STREAMLIT APP
 st.title("AutoVid Application")
 
@@ -120,4 +132,5 @@ if audio_made:
 
     #video.write_videofile(f"./output/reel_{formatted_date}.mp4", codec="libx264", audio_codec="aac")
     video.write_videofile(f"./output/reel_{formatted_date}.mp4", codec="mpeg4", audio_codec="aac")
+    remove_tmp_audio(audio_path) # Removes the tmp audio after video is created
 # END OF PROGRAM
