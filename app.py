@@ -1,25 +1,26 @@
+# Using venv
 # activate autovid venv
 # ./autovid/Scripts/activate.ps1
 
+# External Libraries / Programs
 # moviepy python -m pip install moviepy==1.0.3
 # Libraries: moviepy, pygame, pyttsx3
-# Programs: ImageMagick
+# Programs: ffmpeg, ImageMagick
 
-import os
-os.environ["FFMPEG_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffmpeg.exe"
-os.environ["FFPLAY_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffplay.exe"
-os.environ["IMAGEMAGICK_BINARY"] = "C:\\Program Files\\ImageMagick\\magick.exe"
 
 # EXTERNAL IMPORTS
 import streamlit as st
 import pyttsx3
 from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip
-#from moviepy import * # moviepy 2.0...
 
 # INTERNAL IMPORTS
-import datetime
 import os
+import datetime
 from random import choice
+
+# os.environ["FFMPEG_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffmpeg.exe"
+# os.environ["FFPLAY_BINARY"] = "C:\\ProgramData\\ffmpeg\\bin\\ffplay.exe"
+# os.environ["IMAGEMAGICK_BINARY"] = "C:\\Program Files\\ImageMagick\\magick.exe"
 
 # END OF IMPORTS
 
@@ -35,6 +36,7 @@ audio_path = None
 m_vids = list(os.listdir(f"./src/minecraft"))
 h_vids = list(os.listdir(f"./src/hacker"))
 s_vids = list(os.listdir(f"./src/stock"))
+custom_vids = list(os.listdir(f"./src/custom"))
 
 video = None
 # END OF INITIALIZATIONS
@@ -42,16 +44,25 @@ video = None
 # STREAMLIT APP
 st.title("AutoVid Application")
 
-vid_type = genre = st.radio(
+vid_type = st.radio(
     label="Video Type:",
-    options=["minecraft", "stock", "hacker"],
+    options=["minecraft", "stock", "hacker","custom"],
     captions=[
         "Minecraft Parkour!",
         "Randoms in the background",
-        "Terminal, Hooded man kinda vibe"
+        "Terminal, Hooded man kinda vibe",
+        "Choose your own video!"
     ],
     key="vid_type"
 )
+
+if vid_type == "custom":
+    custom_video = st.selectbox(
+        label="Choose a video",
+        options=custom_vids
+    )
+    v_path = f"./src/custom/"+custom_video
+# end vid_type == custom
 
 story = st.text_area(
     label="Enter the text here.",
@@ -84,7 +95,9 @@ if audio_made:
         audio = AudioFileClip(audio_path)
 
     # Set Video
-    v_path = f"./src/{vid_type}/"
+    if vid_type != "custom":
+        v_path = f"./src/{vid_type}/"
+
     video = VideoFileClip("./tmp/vid1.mp4")
 
     if vid_type == "minecraft":
